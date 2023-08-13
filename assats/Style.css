@@ -1,0 +1,179 @@
+:root{
+    --primaryColor: #9778ce;
+    --secondaryColor : #ab47bc ;
+   
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+body {
+  font-family: 'Roboto', sans-serif;
+background-color: #ab47bc;
+height: 100vh;
+width: 100%;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+#container{
+    margin: auto;
+    max-width: 1000px;
+    height: 80vh;
+    width: 100%;
+    padding: 20px;
+    background-color:
+ #9778ce;
+
+}
+.title{
+    text-align: center;
+}
+.task_form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0;
+    gap: 40px;
+    margin: 25px auto;
+}
+.task_form .input_field{
+    display: flex;
+    align-items: center;
+    /* flex-direction: column; */
+    color: rgb(255, 255, 255);
+    min-width: 120px;
+}
+.input{
+    border: none;
+    outline: none;
+}
+.task_form .input_field input,
+.task_form .input_field select{
+    height: 35px;
+    padding: 0 10px;
+}
+.add_btn{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin: 20px auto;
+}
+.add_btn input{
+    background-color:#028131;
+    color: aliceblue;
+border: none;
+cursor: pointer;
+height: 35px;
+padding: 0 10px;
+flex-grow: .2;
+
+}
+.task_form .input_field:first-child{
+flex-grow: 1;
+}
+.task_form .input_field .task_name{
+    flex-grow: 1;
+}
+
+/* management section starts */
+
+.management_tools{
+    margin: 20px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+.management_tools .tool{
+    color: white;
+}
+.management_tools .search{
+
+}
+.management_tools .search input{
+ border: none;
+ outline: none;
+ height: 25px;
+ padding-left: 10px;
+}
+.management_tools select{
+ border: none;
+ outline: none;
+ height: 25px;
+ padding-left: 10px;
+}
+.bulk_action{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: #8a229d;
+    gap: 10px;
+    padding: 15px 20px;
+}
+.bulk_action input,
+.bulk_action select,
+.bulk_action button{
+    height: 30px;
+    display: flex;
+    align-items: center;
+    border: 3px solid black;
+    outline: none;
+    padding: 0 10px;
+
+}
+.change_name input{
+    padding-left: 10px;
+   border-right: 2px solid black;
+}
+.change_name{
+    display: flex;
+    align-items: center;
+   
+}
+.cross{
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.cross_btn{
+    justify-self: flex-end;
+}
+.display_table{
+    display: block;
+    width: 100%;
+}
+.display_table thead,
+ .display_table tbody{
+    width: 100%;
+    display: block;
+}
+.display_table thead{
+    background-color: #1acb5b;
+    color: white;
+}
+ .display_table tbody tr,
+ .display_table thead tr{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 50px;
+}
+.display_table th,
+.display_table td{
+   display: flex; 
+   align-items: center;
+   justify-content: center;
+   width: 100%;
+}
+.display_table tbody tr:nth-child(odd){
+    background-color: antiquewhite;
+    color: black;
+}

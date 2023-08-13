@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="./assats/Style.css">
+    
+</head>
+<body>
+  <section id="container">
+    <div class="title"><h1>Task Management App</h1></div>
+
+    <div class="creation">
+        <h4 class="sub_title">
+           Creat New Task
+        </h4>
+        <hr>
+        <form action="" class="task_form">
+            <!-- //task Name// -->
+            <div class="input_field">
+                <label for="taskName"> Name : &nbsp;</label>
+                <input type="text"
+                class="task_name"
+                id="taskName"
+                name="taskName"
+                placeholder="Enter a task name "
+                >
+            </div>
+            <!-- priority -->
+            <div class="input_field">
+                <label for="priority"> Priority  : &nbsp;</label>
+                
+            <select name="priority" id="priority">
+                <option value="" disabled selected> Select One</option>
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+            </select>
+            </div>
+            <!-- date -->
+            <div class="input_field">
+                <label for="date"> Date  : &nbsp; </label>
+                
+            <input type="date">
+            </div>
+            <!-- Add -->
+          
+        </form>
+        <div class="add_btn">
+               
+                
+            <input type="submit" value="Add Now">
+            </div>
+
+    </div>
+<!-- creation section ends -->
+<div class="management">
+    <div class="sub_title">
+        <h4>Task Management</h4>
+    </div>
+    <hr>
+    <div class="management_tools">
+        <!-- search -->
+        <div class="tool search">
+            <label for="search">Search :&nbsp;</label>
+            <input type="text" placeholder="Search By Name" id="search">
+        </div>
+
+        <!-- filter -->
+        <div class="tool filter">
+            <label for="filter">Filter :&nbsp;</label>
+            <select name="filter" id="filter">
+                <option value="" disabled selected> Select One</option>
+                <option value="Completed">Completed</option>
+                <option value="Incomplete">Incomplete</option>
+                <option value="High">High Priority</option>
+                <option value="Medium">Medium Priority</option>
+                <option value="Low">Low Priority</option>
+            </select>
+        </div>
+        <!-- Sort -->
+        <div class="tool sort">
+            <label for="sort">Sort :&nbsp;</label>
+            <select name="sort" id="sort">
+                <option value="" disabled selected> Select One</option>
+                <option value="Newest">Newest</option>
+                <option value="Oldest">Oldest</option>
+               
+            </select>
+        </div>
+        <!-- date -->
+        <div class="tool date">
+            <label for="date">By Date :&nbsp;</label>
+           <input type="date">
+        </div>
+    </div>
+</div>
+<!-- 
+bulk action section starts -->
+<div class="bulk_action">
+    <!-- Delete button -->
+    <button class="delete">Delete</button>
+    <!-- change priority -->
+    <select name="changePriority" id="changePriority">
+        <option value="" disabled selected> Select One</option>
+        <option value="High">High</option>
+        <option value="Medium">Medium</option>
+        <option value="Low">Low</option>
+    </select>
+
+
+    <!-- change Status -->
+    <select name="changeStatus" id="changeStatus">
+        <option value="" disabled selected> Select One</option>
+        <option value="Completed">Completed</option>
+        <option value="Incomplete">Incomplete</option>
+
+    </select>
+
+    <!-- change name or date -->
+<div class="change_name">
+<input type="text" placeholder="Enter Name">
+
+<select name="changeName" id="changeName">
+    <option value="" disabled selected> Select One</option>
+    <option value="date">Date</option>
+    <option value="name">Name</option>
+
+</select>
+</div>
+<div class="cross">
+    <button class="cross_btn">X</button>
+</div>
+</div>
+
+<!-- task display -->
+<table class="display_table">
+  <thead>
+    <tr>
+        <th><input type="checkbox"> All</th>
+        <th> No.</th>
+        <th> Priority</th>
+        <th>  Status</th>
+        <th> Date</th>
+        <th> Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+       
+        <td>1</td>
+        <td>Playing</td>
+        <td>High</td>
+        <td>Incomplete</td>
+        <td>2023-08-08</td>
+        <td>
+            <button> <i class="fa-solid fa-trash-can"></i></button>
+             <button><i class="fa-solid fa-check-to-slot"></i></button>
+            <button> <i class="fa-solid fa-pen-to-square"></i></button>
+         </td>
+      
+    </tr>
+    <tr>
+       
+        <td>1</td>
+        <td>Playing</td>
+        <td>High</td>
+        <td>Incomplete</td>
+        <td>2023-08-08</td>
+        <td>
+           <button> <i class="fa-solid fa-trash-can"></i></button>
+            <button><i class="fa-solid fa-check-to-slot"></i></button>
+           <button> <i class="fa-solid fa-pen-to-square"></i></button>
+        </td>
+      
+    </tr>
+    <tr>
+       
+        <td>1</td>
+        <td>Playing</td>
+        <td>High</td>
+        <td>Incomplete</td>
+        <td>2023-08-08</td>
+        <td>
+           <button> <i class="fa-solid fa-trash-can"></i></button>
+            <button><i class="fa-solid fa-check-to-slot"></i></button>
+           <button> <i class="fa-solid fa-pen-to-square"></i></button>
+        </td>
+      
+    </tr>
+  </tbody>
+</table>
+
+  </section>
+    
+
+
+    <script src="./assats/app.js">
+
+    </script>
+</body>
+</html>
