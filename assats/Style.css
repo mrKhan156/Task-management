@@ -38,8 +38,9 @@ justify-content: center;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
     margin: 10px 0;
-    gap: 40px;
+    gap: 10px;
     margin: 25px auto;
 }
 .task_form .input_field{
@@ -59,12 +60,18 @@ justify-content: center;
     padding: 0 10px;
 }
 .add_btn{
+  
    display: flex;
    align-items: center;
    justify-content: center;
    margin: 20px auto;
+
+
 }
-.add_btn input{
+.input_field{
+    margin-right: 40px;
+}
+.add_btn .submit{
     background-color:#028131;
     color: aliceblue;
 border: none;
@@ -78,11 +85,13 @@ flex-grow: .2;
 flex-grow: 1;
 }
 .task_form .input_field .task_name{
-    flex-grow: 1;
+    flex-grow: .8;
 }
 
 /* management section starts */
-
+.management{
+    margin-top: -30px;
+}
 .management_tools{
     margin: 20px 0px;
     display: flex;

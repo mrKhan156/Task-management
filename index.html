@@ -17,22 +17,23 @@
            Creat New Task
         </h4>
         <hr>
-        <form action="" class="task_form">
+        <form  class="task_form">
             <!-- //task Name// -->
             <div class="input_field">
                 <label for="taskName"> Name : &nbsp;</label>
-                <input type="text"
+                <input  type="text"
                 class="task_name"
                 id="taskName"
                 name="taskName"
                 placeholder="Enter a task name "
+                required
                 >
             </div>
             <!-- priority -->
             <div class="input_field">
                 <label for="priority"> Priority  : &nbsp;</label>
                 
-            <select name="priority" id="priority">
+            <select required name="priority" id="priority">
                 <option value="" disabled selected> Select One</option>
                 <option value="High">High</option>
                 <option value="Medium">Medium</option>
@@ -43,16 +44,16 @@
             <div class="input_field">
                 <label for="date"> Date  : &nbsp; </label>
                 
-            <input type="date">
+            <input required name="date" type="date">
             </div>
             <!-- Add -->
-          
-        </form>
-        <div class="add_btn">
+            <div class="add_btn">
                
                 
-            <input type="submit" value="Add Now">
-            </div>
+                <button class="submit">Add Now</button>
+                </div>
+        </form>
+       
 
     </div>
 <!-- creation section ends -->
