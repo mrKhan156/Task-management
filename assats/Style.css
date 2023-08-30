@@ -186,3 +186,29 @@ flex-grow: 1;
     background-color: antiquewhite;
     color: black;
 }
+.btn_div{
+display: flex;
+align-items: center;
+gap: 10px;
+}
+.delete_btn{
+border: none;
+background-color: rgb(226, 83, 83);
+padding: 5px 5px;
+border-radius: 5px;
+cursor: pointer;
+}
+.check_btn{
+    border: none;
+    background-color: rgb(206, 228, 59);
+    padding: 5px 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.edit_btn{
+    border: none;
+    background-color: rgba(38, 234, 84, 0.653);
+    padding: 5px 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}

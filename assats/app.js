@@ -47,7 +47,7 @@ task list
  function displayTasks () {
    const tasks = getLocal();
    tBody.innerHTML =''
-   tasks?.map(({taskName , priority , status, date } , index) => {
+   tasks?.map(({taskName , priority , status, date, id } , index) => {
      
       const tr = document.createElement('tr');
 
@@ -58,10 +58,10 @@ task list
    <td>${priority}</td>
    <td>${status || 'Incomplete'}</td>
    <td>${date}</td>
-   <td>
-        <i class="fa-solid fa-trash-can"></i>
-        <i class="fa-solid fa-check-to-slot"></i>
-        <i class="fa-solid fa-pen-to-square"></i>
+   <td class="btn_div" >
+       <button class="delete_btn" onclick='deleteTask(${id})'> <i class="fa-solid fa-trash-can"></i></button>
+       <button class="check_btn" onclick='taskStatus(${id})' > <i class="fa-solid fa-check-to-slot"></i></button>
+        <button class="edit_btn"><i class="fa-solid fa-pen-to-square"></i></button>
     </td> `;
 
    tBody.appendChild(tr);
@@ -69,3 +69,35 @@ task list
    
  }
  displayTasks();
+// delete tasks function
+function deleteTask(id){
+   const tasks = getLocal()
+   const newTasks = tasks.filter(task =>{
+      if(task.id!==id){
+         return true;
+      }
+      else{
+         return false;
+      }
+   })
+   localStorage.setItem("tasks", JSON.stringify(newTasks))
+   displayTasks()
+}
+
+// task status change
+function taskStatus(id){
+   const tasks = getLocal()
+   const newTasks = tasks.map(task=>{
+      if (task.id === id){
+         if(task.status ==='Incomplete'){
+            task.status = 'Completed';
+         }
+         else{
+            task.status = 'Incomplete';
+         }
+      }
+     return task;
+   })
+   localStorage.setItem("tasks", JSON.stringify(newTasks))
+   displayTasks()
+}
