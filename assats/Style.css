@@ -212,3 +212,10 @@ cursor: pointer;
     border-radius: 5px;
     cursor: pointer;
 }
+.save_btn{
+    border: none;
+    background-color: rgba(28, 125, 244, 0.653);
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}

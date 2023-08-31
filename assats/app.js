@@ -51,17 +51,18 @@ task list
      
       const tr = document.createElement('tr');
 
+      tr.classList.add(`task_${id}`);
    tr.innerHTML = `
    <td><input type="checkbox"></td>
    <td>${index + 1}</td>
-   <td>${taskName}</td>
-   <td>${priority}</td>
-   <td>${status || 'Incomplete'}</td>
-   <td>${date}</td>
-   <td class="btn_div" >
+   <td  class='taskName'>${taskName}</td>
+   <td class='priority'>${priority}</td>
+   <td class='status'>${status || 'Incomplete'}</td>
+   <td class='date'>${date}</td>
+   <td class="btn_div , action " >
        <button class="delete_btn" onclick='deleteTask(${id})'> <i class="fa-solid fa-trash-can"></i></button>
        <button class="check_btn" onclick='taskStatus(${id})' > <i class="fa-solid fa-check-to-slot"></i></button>
-        <button class="edit_btn"><i class="fa-solid fa-pen-to-square"></i></button>
+        <button class="edit_btn" onclick='editTask(${id})'><i class="fa-solid fa-pen-to-square"></i></button>
     </td> `;
 
    tBody.appendChild(tr);
@@ -100,4 +101,81 @@ function taskStatus(id){
    })
    localStorage.setItem("tasks", JSON.stringify(newTasks))
    displayTasks()
+}
+
+// edit task
+function editTask(id){
+const tr = document.querySelector(`.task_${id}`);
+// for task name
+const taskNameEl = tr.querySelector('.taskName');
+const taskName = taskNameEl.textContent;
+const taskNameInput = document.createElement('input');
+taskNameInput.value= taskName;
+taskNameEl.innerHTML = '';
+taskNameEl.appendChild(taskNameInput);
+
+// forpriority
+const priorityEl = tr.querySelector('.priority');
+const priorityName = priorityEl.textContent;
+const selectEl = document.createElement('select');
+selectEl.innerHTML = `    <option value="" disabled selected> Select One</option>
+<option ${priorityName === "High" && "selected"}    value="High">High</option>
+<option ${priorityName === "Medium" && "selected"}  value="Medium">Medium</option>
+<option ${priorityName === "Low" && "selected"}  value="Low">Low</option>
+`
+
+priorityEl.innerHTML ='';
+priorityEl.appendChild(selectEl);
+
+
+
+
+
+
+
+// for date
+const dateEl = tr.querySelector('.date');
+const date = dateEl.textContent;
+
+const dateTaskEl = document.createElement('input');
+dateTaskEl.type = 'date';
+dateTaskEl.value= date;
+dateEl.innerHTML = '';
+dateEl.appendChild(dateTaskEl);
+
+
+
+
+
+
+// for action
+const actionEl = tr.querySelector('.action');
+const actionButton = actionEl.innerHTML;
+const saveBtn = document.createElement('button');
+saveBtn.onclick =  function(){
+   const newTaskName = taskNameInput.value;
+   const newTaskPriority = selectEl.value;
+   const newDate = dateTaskEl.value;
+   const tasks = getLocal()
+   const newTasks = tasks.map(task =>{
+      if(task.id ===id){
+         return {
+            ...task,
+            taskName: newTaskName,
+            priority: newTaskPriority,
+            date : newDate
+         }
+      }
+      else{
+         return task;
+      }
+   })
+   localStorage.setItem("tasks", JSON.stringify(newTasks))
+   displayTasks()
+}
+saveBtn.innerHTML =`
+<button class="save_btn" ><i class="fa-solid fa-floppy-disk"></i></button>`
+actionEl.innerHTML = '';
+actionEl.appendChild(saveBtn);
+
 }
