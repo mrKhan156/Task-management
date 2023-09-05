@@ -7,6 +7,8 @@ task list
 */
  const form = document.querySelector('.task_form');
  const tBody = document.querySelector('tbody');
+ const search = document.querySelector('#search');
+ const filter = document.querySelector('#filter');
 
  form.addEventListener('submit', (e)=>{
    //   e.preventDefault()
@@ -44,10 +46,51 @@ task list
  }
  // display task to list
 
- function displayTasks () {
-   const tasks = getLocal();
+ function displayTasks (searchText, filterName) {
+   let tasks = getLocal();
+
+   if(searchText){
+   searchText = searchText.trim().toLowerCase();
+    tasks = tasks.filter(task =>{
+         if(task.taskName.toLowerCase().includes(searchText)) return true;
+         return false ;
+      })
+   }
+  
+if(filterName){
+   tasks = tasks.filter(task=>{
+   switch(filterName){
+      case 'Incomplete':
+      if(task.status === filterName ) return true ;
+      return false ;
+      break;
+
+      case'Completed':
+      if(task.status === filterName ) return true ;
+      return false ;
+      break;
+
+      case'High':
+      if(task.priority === filterName ) return true ;
+      return false ;
+      break;
+
+      case'Medium':
+      if(task.priority === filterName ) return true ;
+      return false ;
+      break;
+
+      case'Low':
+      if(task.priority === filterName ) return true ;
+      return false ;
+      break;
+   } 
+   })
+}
+
    tBody.innerHTML =''
-   tasks?.map(({taskName , priority , status, date, id } , index) => {
+  if(tasks.length){
+   tasks?.reverse()?.map(({taskName , priority , status, date, id } , index) => {
      
       const tr = document.createElement('tr');
 
@@ -67,6 +110,10 @@ task list
 
    tBody.appendChild(tr);
    })
+  }
+  else{
+   tBody.innerHTML ='<p>No Tasks Founded !</p>'
+  }
    
  }
  displayTasks();
@@ -179,3 +226,16 @@ actionEl.innerHTML = '';
 actionEl.appendChild(saveBtn);
 
 }
+
+//search
+
+search.addEventListener('input', function(e){
+   const searchText = e.target.value;
+   displayTasks(searchText)
+})
+
+//filter
+filter.addEventListener('change', function(e){
+   const filterName = e.target.value;
+   displayTasks(undefined, filterName)
+})
