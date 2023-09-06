@@ -9,6 +9,8 @@ task list
  const tBody = document.querySelector('tbody');
  const search = document.querySelector('#search');
  const filter = document.querySelector('#filter');
+ const sort = document.querySelector('#sort');
+ const searchByDate = document.querySelector('#search_date');
 
  form.addEventListener('submit', (e)=>{
    //   e.preventDefault()
@@ -22,6 +24,7 @@ task list
         }
     });
     task.id = Math.floor(Math.random() * 1000 + 1000) + Date.now()
+    task.status = 'Incomplete';
 
     addToLocal(task);
     e.target.reset();
@@ -46,8 +49,37 @@ task list
  }
  // display task to list
 
- function displayTasks (searchText, filterName) {
+ function displayTasks (searchText, filterName, sortText,searchDate) {
    let tasks = getLocal();
+
+   
+if(searchDate){
+   tasks = tasks.filter(task=>{
+       if(new Date(task.date).toLocaleDateString() === new Date(searchDate).toLocaleDateString()) return true;
+       return false;
+   })
+}
+
+
+if(sortText){
+ tasks = tasks.sort((a,b)=>{
+  if(sortText==="New"){
+   if(new Date(a.date)< new Date(b.date))return -1;
+   if(new Date(a.date)> new Date(b.date))return 1;
+   return 0;
+  }
+  else{
+   if(new Date(b.date)< new Date(a.date))return -1;
+   if(new Date(b.date)> new Date(a.date))return 1;
+   return 0;
+  }
+ })
+}
+else{
+   tasks= tasks.reverse()
+}
+
+
 
    if(searchText){
    searchText = searchText.trim().toLowerCase();
@@ -90,7 +122,7 @@ if(filterName){
 
    tBody.innerHTML =''
   if(tasks.length){
-   tasks?.reverse()?.map(({taskName , priority , status, date, id } , index) => {
+   tasks?.map(({taskName , priority , status, date, id } , index) => {
      
       const tr = document.createElement('tr');
 
@@ -101,7 +133,7 @@ if(filterName){
    <td  class='taskName'>${taskName}</td>
    <td class='priority'>${priority}</td>
    <td class='status'>${status || 'Incomplete'}</td>
-   <td class='date'>${date}</td>
+   <td class='date'>${new Date(date).toLocaleString()}</td>
    <td class="btn_div , action " >
        <button class="delete_btn" onclick='deleteTask(${id})'> <i class="fa-solid fa-trash-can"></i></button>
        <button class="check_btn" onclick='taskStatus(${id})' > <i class="fa-solid fa-check-to-slot"></i></button>
@@ -238,4 +270,16 @@ search.addEventListener('input', function(e){
 filter.addEventListener('change', function(e){
    const filterName = e.target.value;
    displayTasks(undefined, filterName)
+})
+
+
+//sort
+sort.addEventListener('change', function(e){
+   const sortText = e.target.value;
+   displayTasks(undefined, undefined,sortText)
+})
+//search by date
+searchByDate.addEventListener('input',function(e){
+   const searchDate = e.target.value;
+   displayTasks(undefined, undefined,undefined,searchDate)
 })

@@ -44,7 +44,7 @@
             <div class="input_field">
                 <label for="date"> Date  : &nbsp; </label>
                 
-            <input required name="date" type="date">
+            <input required name="date" type="datetime-local">
             </div>
             <!-- Add -->
             <div class="add_btn">
@@ -86,15 +86,15 @@
             <label for="sort">Sort :&nbsp;</label>
             <select name="sort" id="sort">
                 <option value="" disabled selected> Select One</option>
-                <option value="Newest">Newest</option>
-                <option value="Oldest">Oldest</option>
+                <option value="New">Newest</option>
+                <option value="Old">Oldest</option>
                
             </select>
         </div>
         <!-- date -->
         <div class="tool date">
             <label for="date">By Date :&nbsp;</label>
-           <input type="date">
+           <input type="date" id="search_date">
         </div>
     </div>
 </div>
