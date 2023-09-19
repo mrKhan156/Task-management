@@ -11,6 +11,18 @@ task list
  const filter = document.querySelector('#filter');
  const sort = document.querySelector('#sort');
  const searchByDate = document.querySelector('#search_date');
+ const bulkAction = document.querySelector('.bulk_action');
+ const allSelect = document.querySelector('#allSelect');
+
+ 
+ const deleteAll = document.querySelector('.deleteAll') ;
+ const changePriority = document.querySelector('#changePriority');
+ const changeStatus = document.querySelector('#changeStatus');
+ const chooseNameOrDate = document.querySelector('.change_name');
+ const chooseNameOrDateInput = document.querySelector('#chooseNameInput');
+
+
+
 
  form.addEventListener('submit', (e)=>{
    //   e.preventDefault()
@@ -47,7 +59,164 @@ task list
    tasks.push(task);
    localStorage.setItem("tasks", JSON.stringify(tasks))
  }
+ // TODO bulk action
+ let selectedTask = []
+
+ function hideBulkSection(){
+   bulkAction.classList.add('hide')
+  
+ }
+ function showBulkSection(){
+   bulkAction.classList.remove('hide')
+ }
+// Bulk delete
+deleteAll.addEventListener('click', ()=>{
+   const isConfirm = confirm('Are You Sure To Delete ?');
+   if(isConfirm){
+      let tasks = getLocal('tasks');
+      tasks = tasks.filter(task =>{
+         if(selectedTask.includes(String(task.id))){
+            return false ;
+         } else{
+            return true ;
+         }
+      });
+      localStorage.setItem('tasks',JSON.stringify(tasks))
+      displayTasks()
+      bulkAction.classList.add('hide');
+   }
+})
+//bulk change priority
+
+changePriority.addEventListener('change', function(e){
+   const priority = e.target.value;
+   let tasks = getLocal('tasks');
+   tasks = tasks.map(task=>{
+      if(selectedTask.includes(String(task.id))){
+         task.priority = priority;
+         return task ;
+      } else{
+         return task ;
+      }
+   });
+   localStorage.setItem('tasks',JSON.stringify(tasks))
+   displayTasks()
+   
+})
+//bulk change status
+
+changeStatus.addEventListener('change', function(e){
+   const status = e.target.value;
+   let tasks = getLocal('tasks');
+   tasks = tasks.map(task=>{
+      if(selectedTask.includes(String(task.id))){
+         task.status = status;
+         return task ;
+      } else{
+         return task ;
+      }
+   });
+   localStorage.setItem('tasks',JSON.stringify(tasks))
+   displayTasks()
+   
+})
+
+//change date handelar
+chooseNameOrDate.addEventListener('change', function(e){
+   if (chooseNameOrDateInput.type === 'text'){
+      chooseNameOrDateInput.type = 'datetime-local'
+   } else{
+      chooseNameOrDateInput.type = 'text'
+   }
+})
+//choose name or date for name
+chooseNameOrDateInput.addEventListener('keypress', function(e){
+   const val = e.target.value.trim();
+   if(val && e.target.type === 'text' && e.key === "Enter"){
+      let tasks = getLocal('tasks');
+      tasks= tasks.map(task =>{
+         if (selectedTask.includes(String(task.id))){
+            task.taskName = val ;
+            return task ;
+         } else{
+            return task ;
+         }
+      });
+      localStorage.setItem('tasks',JSON.stringify(tasks))
+      displayTasks()
+   }
+})
+//choose name or date for date
+chooseNameOrDateInput.addEventListener('change', function(e){
+   const val = e.target.value.trim();
+   if(val && e.target.type === 'datetime-local'){
+      let tasks = getLocal('tasks');
+      tasks= tasks.map(task =>{
+         if (selectedTask.includes(String(task.id))){
+            task.date= val ;
+            return task ;
+         } else{
+            return task ;
+         }
+      });
+      localStorage.setItem('tasks',JSON.stringify(tasks))
+      displayTasks()
+   }
+})
+
+
+
+ // make selected 
+ function makeSelected(id){
+   allSelect.checked = false ;
+   if(selectedTask.includes(id)){
+      selectedTask = selectedTask.filter(taskId => taskId !== id)
+   } else{
+      selectedTask.push(id)
+   }
+   if(selectedTask.length){
+     showBulkSection()
+   } else{
+      hideBulkSection()
+   }
+   console.log(selectedTask);
+ }
  
+ //cross button bulk section
+ document.querySelector('.cross_btn').addEventListener('click', ()=>{
+   hideBulkSection()
+   allSelect.checked= false;
+   selectedTask = [];
+   displayTasks()
+ })
+
+// all select
+
+allSelect.addEventListener('change',(e)=>{
+   const tasks = tBody.children;
+   if(allSelect.checked){
+      
+      selectedTask = [...tasks].map(taskEl=>{
+
+        const checkBox = taskEl.querySelector('input[type="checkbox"]');
+        checkBox.checked = true;
+        return taskEl.dataset.id;
+      })
+      showBulkSection()
+   } else{
+      selectedTask =[];
+      [...tasks].map(taskEl=>{
+
+         const checkBox = taskEl.querySelector('input[type="checkbox"]');
+         checkBox.checked = false;
+         
+       })
+       hideBulkSection()
+   }
+})
+
+
+
  let searchTextState, filterNameState, sortTextState,searchDateState;
  
  // display task to list
@@ -135,8 +304,9 @@ if(filterName){
       const tr = document.createElement('tr');
 
       tr.classList.add(`task_${id}`);
+      tr.dataset.id = id;
    tr.innerHTML = `
-   <td><input type="checkbox"></td>
+   <td><input type="checkbox" onclick='makeSelected("${id}")'></td>
    <td>${index + 1}</td>
    <td  class='taskName'>${taskName}</td>
    <td class='priority'>${priority}</td>
@@ -147,6 +317,10 @@ if(filterName){
        <button class="check_btn" onclick='taskStatus(${id})' > <i class="fa-solid fa-check-to-slot"></i></button>
         <button class="edit_btn" onclick='editTask(${id})'><i class="fa-solid fa-pen-to-square"></i></button>
     </td> `;
+  const checkBox = tr.querySelector('input[type="checkBox"]');
+      if(selectedTask.includes(String(id))) checkBox.checked = true;
+
+
 
    tBody.appendChild(tr);
    })

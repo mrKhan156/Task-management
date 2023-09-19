@@ -125,6 +125,9 @@ flex-grow: 1;
     gap: 10px;
     padding: 15px 20px;
 }
+.bulk_action.hide{
+ display: none;
+}
 .bulk_action input,
 .bulk_action select,
 .bulk_action button{

@@ -101,9 +101,9 @@
 </div>
 <!-- 
 bulk action section starts -->
-<div class="bulk_action">
+<div class="bulk_action hide">
     <!-- Delete button -->
-    <button class="delete">Delete</button>
+    <button class="deleteAll">Delete</button>
     <!-- change priority -->
     <select name="changePriority" id="changePriority">
         <option value="" disabled selected> Select One</option>
@@ -123,7 +123,7 @@ bulk action section starts -->
 
     <!-- change name or date -->
 <div class="change_name">
-<input type="text" placeholder="Enter Name">
+<input type="text" placeholder="Enter Name" id="chooseNameInput">
 
 <select name="changeName" id="changeName">
     <option value="" disabled selected> Select One</option>
@@ -141,7 +141,7 @@ bulk action section starts -->
 <table class="display_table">
   <thead>
     <tr>
-        <th><input type="checkbox"> All</th>
+        <th><input type="checkbox" id="allSelect"> All</th>
         <th> No.</th>
         <th>Task Name</th>
         <th> Priority</th>
