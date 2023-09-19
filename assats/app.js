@@ -47,9 +47,14 @@ task list
    tasks.push(task);
    localStorage.setItem("tasks", JSON.stringify(tasks))
  }
+ 
+ let searchTextState, filterNameState, sortTextState,searchDateState;
+ 
  // display task to list
 
- function displayTasks (searchText, filterName, sortText,searchDate) {
+
+
+ function displayTasks (searchText = searchTextState, filterName = filterNameState , sortText = sortTextState ,searchDate =searchDateState) {
    let tasks = getLocal();
 
    
@@ -92,6 +97,9 @@ else{
 if(filterName){
    tasks = tasks.filter(task=>{
    switch(filterName){
+      case 'All':
+      return true ;
+      break;
       case 'Incomplete':
       if(task.status === filterName ) return true ;
       return false ;
@@ -133,7 +141,7 @@ if(filterName){
    <td  class='taskName'>${taskName}</td>
    <td class='priority'>${priority}</td>
    <td class='status'>${status || 'Incomplete'}</td>
-   <td class='date'>${new Date(date).toLocaleString()}</td>
+   <td data-date="${date}" class='date'>${new Date(date).toLocaleString()}</td>
    <td class="btn_div , action " >
        <button class="delete_btn" onclick='deleteTask(${id})'> <i class="fa-solid fa-trash-can"></i></button>
        <button class="check_btn" onclick='taskStatus(${id})' > <i class="fa-solid fa-check-to-slot"></i></button>
@@ -214,10 +222,10 @@ priorityEl.appendChild(selectEl);
 
 // for date
 const dateEl = tr.querySelector('.date');
-const date = dateEl.textContent;
+const date = dateEl.dataset.date;
 
 const dateTaskEl = document.createElement('input');
-dateTaskEl.type = 'date';
+dateTaskEl.type = 'datetime-local';
 dateTaskEl.value= date;
 dateEl.innerHTML = '';
 dateEl.appendChild(dateTaskEl);
@@ -262,24 +270,28 @@ actionEl.appendChild(saveBtn);
 //search
 
 search.addEventListener('input', function(e){
-   const searchText = e.target.value;
-   displayTasks(searchText)
+   const searchTextVal = e.target.value;
+   searchText = searchTextVal;
+   displayTasks(searchTextVal)
 })
 
 //filter
 filter.addEventListener('change', function(e){
-   const filterName = e.target.value;
-   displayTasks(undefined, filterName)
+   const filterNameVal = e.target.value;
+   filterName = filterNameVal;
+   displayTasks(undefined, filterNameVal)
 })
 
 
 //sort
 sort.addEventListener('change', function(e){
-   const sortText = e.target.value;
-   displayTasks(undefined, undefined,sortText)
+   const sortTextVal = e.target.value;
+   sortText = sortTextVal;
+   displayTasks(undefined, undefined,sortTextVal)
 })
 //search by date
 searchByDate.addEventListener('input',function(e){
-   const searchDate = e.target.value;
-   displayTasks(undefined, undefined,undefined,searchDate)
+   const searchDateVal = e.target.value;
+   searchDate = searchDateVal;
+   displayTasks(undefined, undefined,undefined,searchDateVal)
 })
